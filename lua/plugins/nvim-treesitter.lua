@@ -6,7 +6,7 @@ return {
 
         configs.setup({
             ensure_installed = {
-                "c", "lua", "vim", "vimdoc", "query", "elixir", "heex", "javascript", "html"
+                "c", "lua", "vim", "vimdoc", "query", "elixir", "heex", "javascript", "html", "svelte"
             },
             auto_install = true,
             sync_install = false,

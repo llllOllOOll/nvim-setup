@@ -8,3 +8,6 @@ vim.keymap.set("n", "<leader>cf", function()
 		lsp_format = "fallback",
 	})
 end, { desc = "Format current file" })
+
+vim.keymap.set("n", "L", ":bnext<CR>", { desc = "Next buffer" })
+vim.keymap.set("n", "H", ":bprevious<CR>", { desc = "Previous buffer" })

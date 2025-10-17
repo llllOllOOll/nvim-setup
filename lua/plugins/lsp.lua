@@ -7,8 +7,13 @@ return {
 
         -- Useful status updates for LSP.
         { "j-hui/fidget.nvim", opts = {} },
+
+        -- Lazydev for better Lua LSP completions
+        "folke/lazydev.nvim",
     },
     config = function()
+        require("lazydev").setup()
+
         --    function will be executed to configure the current buffer
         vim.api.nvim_create_autocmd("LspAttach", {
             group = vim.api.nvim_create_augroup("kickstart-lsp-attach", { clear = true }),
@@ -162,6 +167,11 @@ return {
         local servers = {
             bashls = {},
             marksman = {},
+            tailwindcss = {},
+            emmet_ls = {
+                filetypes = { "html", "typescriptreact", "javascriptreact", "css", "sass", "scss", "less", "svelte" },
+            },
+            svelte = {},
             -- clangd = {},
             -- gopls = {},
             -- pyright = {},
@@ -179,15 +189,18 @@ return {
                 -- cmd = { ... },
                 -- filetypes = { ... },
                 -- capabilities = {},
-                -- settings = {
-                --   Lua = {
-                --     completion = {
-                --       callSnippet = 'Replace',
-                --     },
-                --     -- You can toggle below to ignore Lua_LS's noisy `missing-fields` warnings
-                --     -- diagnostics = { disable = { 'missing-fields' } },
-                --   },
-                -- },
+                settings = {
+                  Lua = {
+                    completion = {
+                      callSnippet = 'Replace',
+                    },
+                    -- You can toggle below to ignore Lua_LS's noisy `missing-fields` warnings
+                    -- diagnostics = { disable = { 'missing-fields' } },
+                     workspace = {
+                       library = vim.api.nvim_get_runtime_file("", true),
+                     },
+                  },
+                },
             },
         }
 
