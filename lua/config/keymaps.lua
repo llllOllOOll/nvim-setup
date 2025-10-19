@@ -1,13 +1,13 @@
 vim.keymap.set("n", "-", "<cmd>Oil --float<CR>", { desc = "Open Parent Directory in Oil" })
 vim.keymap.set("n", "gl", function()
-	vim.diagnostic.open_float()
+    vim.diagnostic.open_float()
 end, { desc = "Open Diagnostics in Float" })
 
 vim.keymap.set("n", "<leader>cf", function()
-	require("conform").format({
-		lsp_format = "fallback",
-	})
+    require("conform").format({
+        lsp_format = "fallback",
+    })
 end, { desc = "Format current file" })
 
-vim.keymap.set("n", "L", ":bnext<CR>", { desc = "Next buffer" })
-vim.keymap.set("n", "H", ":bprevious<CR>", { desc = "Previous buffer" })
+-- Map <leader>fp to open projects
+vim.keymap.set("n", "<leader>fp", ":ProjectFzf<CR>", { noremap = true, silent = true })
