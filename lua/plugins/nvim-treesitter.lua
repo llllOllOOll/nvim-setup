@@ -7,6 +7,8 @@ return {
         configs.setup({
             ensure_installed = {
                 "typescript",
+                "svelte",
+                "css",
                 "c",
                 "lua",
                 "vim",

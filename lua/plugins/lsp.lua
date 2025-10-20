@@ -216,6 +216,23 @@ return {
         local servers = {
             bashls = {},
             marksman = {},
+            svelte = {
+                settings = {
+                    svelte = {
+                        plugin = {
+                            typescript = { enable = true },
+                        },
+                    },
+                },
+            },
+            tailwindcss = {},
+            emmet_language_server = {
+                filetypes = { "svelte", "html", "css", "javascriptreact", "typescriptreact", "vue" },
+                capabilities = capabilities,
+            },
+            -- emmet_ls = {
+            --     filetypes = { "html", "css", "javascriptreact", "typescriptreact", "vue" },
+            -- },
             -- clangd = {},
             -- gopls = {},
             -- pyright = {},
