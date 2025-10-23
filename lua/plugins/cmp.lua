@@ -33,7 +33,26 @@ return {
           ['<C-e>'] = cmp.mapping.abort(),
           ['<C-j>'] = cmp.mapping.select_next_item(),
           ['<C-k>'] = cmp.mapping.select_prev_item(),
-          ['<C-z>'] = cmp.mapping.confirm({ select = true }),
+          ['<CR>'] = cmp.mapping.confirm({ select = true }),
+          ['<C-y>'] = cmp.mapping.abort(),
+          ['<Tab>'] = cmp.mapping(function(fallback)
+            if luasnip.expand_or_jumpable() then
+              luasnip.expand_or_jump()
+            elseif cmp.visible() then
+              cmp.select_next_item()
+            else
+              fallback()
+            end
+          end, { 'i', 's' }),
+          ['<S-Tab>'] = cmp.mapping(function(fallback)
+            if luasnip.jumpable(-1) then
+              luasnip.jump(-1)
+            elseif cmp.visible() then
+              cmp.select_prev_item()
+            else
+              fallback()
+            end
+          end, { 'i', 's' }),
         }),
         sources = cmp.config.sources({
           { name = 'nvim_lsp', priority = 80 },

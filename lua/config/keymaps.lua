@@ -9,6 +9,10 @@ vim.keymap.set("n", "<leader>cf", function()
     })
 end, { desc = "Format current file" })
 
+vim.keymap.set("n", "<leader>cF", function()
+    require("conform").format({ formatters = { "injected" }, timeout_ms = 3000 })
+end, { desc = "Format Injected Langs" })
+
 -- Map <leader>fp to open projects
 vim.keymap.set("n", "<leader>fp", ":ProjectFzf<CR>", { noremap = true, silent = true })
 
