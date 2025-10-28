@@ -4,7 +4,7 @@ return {
         { "williamboman/mason.nvim", config = true },
         "williamboman/mason-lspconfig.nvim",
         "WhoIsSethDaniel/mason-tool-installer.nvim",
-        { "j-hui/fidget.nvim", opts = {} },
+        { "j-hui/fidget.nvim",       opts = {} },
         "ibhagwan/fzf-lua", -- keep FZF integration
     },
 
@@ -71,6 +71,17 @@ return {
             bashls = {},
             marksman = {},
             cssls = {},
+            kotlin_language_server = {
+                settings = {
+                    kotlin = {
+                        compiler = {
+                            jvm = {
+                                target = "21"
+                            }
+                        }
+                    }
+                }
+            },
         }
 
         -- Mason ensure installation
