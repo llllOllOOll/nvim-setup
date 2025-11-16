@@ -5,7 +5,7 @@ return {
     local conform = require("conform")
 
     conform.setup({
-      format_after_saveformatters_by_ft = {
+      formatters_by_ft = {
         lua = { "stylua" },
         javascript = { "prettier" },
         typescript = { "prettier" },
@@ -15,12 +15,19 @@ return {
         css = { "prettier" },
         html = { "prettier" },
         json = { "prettier" },
+        kotlin = { "ktfmt" },
       },
-      format_on_save = {
-        lsp_fallback = true,
-        async = false,
-        timeout_ms = 500,
-      },
+      format_on_save = function(bufnr)
+        -- Disable auto-format for kotlin files
+        if vim.bo[bufnr].filetype == "kotlin" then
+          return false
+        end
+        return {
+          lsp_fallback = true,
+          async = false,
+          timeout_ms = 500,
+        }
+      end,
     })
     vim.keymap.set({ "n", "v" }, "<leader>cf", function()
       conform.format({

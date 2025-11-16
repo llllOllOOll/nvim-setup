@@ -33,6 +33,9 @@ vim.keymap.set("n", "<leader>sk", ":ShowkeysToggle<CR>", { desc = "Toggle Showke
 -- Run current file with bun
 vim.keymap.set("n", "<leader>rb", ":!bun %<CR>", { desc = "Run current file with bun" })
 
+-- Run current file with Zig
+vim.keymap.set("n", "<leader>z", ":!zig build run <CR>", { desc = "Run current file with bun" })
+
 -- Escape insert mode with jk
 vim.keymap.set("i", "jk", "<Esc>", { desc = "Escape insert mode" })
 
