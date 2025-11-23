@@ -33,11 +33,24 @@ vim.keymap.set("n", "<leader>sk", ":ShowkeysToggle<CR>", { desc = "Toggle Showke
 -- Run current file with bun
 vim.keymap.set("n", "<leader>rb", ":!bun %<CR>", { desc = "Run current file with bun" })
 
--- Run current file with Zig
-vim.keymap.set("n", "<leader>z", ":!zig build run <CR>", { desc = "Run current file with bun" })
+-- Run current file with Zig (only for Zig files)
+vim.keymap.set("n", "zr", function()
+  if vim.bo.filetype == "zig" then
+    vim.cmd("!zig build run")
+  else
+    print("This keymap only works for Zig files")
+  end
+end, { desc = "Run current Zig file" })
 
 -- Escape insert mode with jk
 vim.keymap.set("i", "jk", "<Esc>", { desc = "Escape insert mode" })
 
 -- Escape visual mode with jk
 -- vim.keymap.set("v", "jk", "<Esc>", { desc = "Escape visual mode" })
+
+-- disable auto comment continuation
+vim.api.nvim_create_autocmd("BufEnter", {
+  callback = function()
+    vim.opt.formatoptions:remove({ "c", "r", "o" })
+  end,
+})

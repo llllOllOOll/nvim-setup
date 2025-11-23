@@ -79,7 +79,9 @@ return {
 					},
 				},
 			},
-			zls = {},
+			zls = {
+				cmd = { "/home/seven/zls/zig-out/bin/zls" },
+			},
 		}
 
 		-- Ensure tools are installed
@@ -92,7 +94,7 @@ return {
 
 		-- Setup LSP servers
 		mason_lsp.setup({
-			automatic_installation = true,
+			automatic_installation = false,
 			handlers = {
 				function(server)
 					local opts = servers[server] or {}
