@@ -85,7 +85,9 @@ return {
 		}
 
 		-- Ensure tools are installed
-		local ensure = vim.tbl_keys(servers)
+		local ensure = vim.tbl_filter(function(server)
+			return server ~= "zls"
+		end, vim.tbl_keys(servers))
 		vim.list_extend(ensure, { "stylua", "prettier" })
 
 		require("mason-tool-installer").setup({

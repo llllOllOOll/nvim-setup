@@ -1,4 +1,5 @@
 require("config.lazy")
+require("config.makeprg")
 require("snippets.svelte")
 
 -- vim.opt.clipboard = "unnamedplus"

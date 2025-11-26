@@ -33,20 +33,25 @@ vim.keymap.set("n", "<leader>sk", ":ShowkeysToggle<CR>", { desc = "Toggle Showke
 -- Run current file with bun
 vim.keymap.set("n", "<leader>rb", ":!bun %<CR>", { desc = "Run current file with bun" })
 
--- Run current file with Zig (only for Zig files)
-vim.keymap.set("n", "zr", function()
-  if vim.bo.filetype == "zig" then
-    vim.cmd("!zig build run")
-  else
-    print("This keymap only works for Zig files")
-  end
-end, { desc = "Run current Zig file" })
+
 
 -- Escape insert mode with jk
 vim.keymap.set("i", "jk", "<Esc>", { desc = "Escape insert mode" })
 
 -- Escape visual mode with jk
 -- vim.keymap.set("v", "jk", "<Esc>", { desc = "Escape visual mode" })
+
+-- Open a live terminal split at the bottom and run the exact same command :make uses
+local function run_in_split()
+  local cmd = vim.fn.expandcmd(vim.o.makeprg)   -- respects your current makeprg + % replacements
+  vim.cmd("below 15split | terminal " .. cmd)   -- 15 lines high, you can change the number
+end
+
+-- Two-key workflow exactly like Tsoding
+vim.keymap.set("n", "<leader>c", ":make<CR>", { silent = true, desc = "Compile/Run (quickfix)" })
+vim.keymap.set("n", "<leader>r", run_in_split, { silent = true, desc = "Re-run in live split" })
+vim.keymap.set("n", "<leader>e", ":cnext<CR>", { silent = true, desc = "Next compilation error" })
+vim.keymap.set("n", "<leader>E", ":cprev<CR>", { silent = true, desc = "Previous compilation error" })
 
 -- disable auto comment continuation
 vim.api.nvim_create_autocmd("BufEnter", {
