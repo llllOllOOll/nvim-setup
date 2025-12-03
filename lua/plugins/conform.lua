@@ -29,6 +29,14 @@ return {
 					timeout_ms = 500,
 				}
 			end,
+			formatters = {
+				prettier = {
+					args = { "--tab-width", "2", "--print-width", "80" },
+				},
+				stylua = {
+					args = { "--search-parent-directories", "--stdin-filepath", "$FILENAME", "--column-width", "80" },
+				},
+			},
 		})
 		vim.keymap.set({ "n", "v" }, "<leader>cf", function()
 			conform.format({

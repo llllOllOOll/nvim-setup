@@ -1,3 +1,7 @@
 [*.lua]
 indent_style=space
 indent_size=4
+max_line_length=80
+
+[*.{js,ts,svelte,css,html,json}]
+max_line_length=80

@@ -15,6 +15,8 @@ opt.autoindent = true -- copy indent from current line when starting new one
 opt.formatoptions:remove({ "c", "r", "o" })
 
 opt.wrap = false
+opt.textwidth = 80 -- set line width to 80 characters
+opt.colorcolumn = "80" -- show a line at column 80
 
 -- search settings
 opt.ignorecase = true -- ignore case when searching
