@@ -80,7 +80,10 @@ return {
 				},
 			},
 			zls = {
-				cmd = { "/home/seven/zls/zig-out/bin/zls" },
+				cmd = { "zls" },
+				filetypes = { "zig", "zir" },
+				root_dir = lspconfig.util.root_pattern("build.zig", ".git") or vim.loop.cwd(),
+				single_file_support = true,
 			},
 		}
 
@@ -101,9 +104,14 @@ return {
 				function(server)
 					local opts = servers[server] or {}
 					opts.capabilities = vim.tbl_deep_extend("force", {}, capabilities, opts.capabilities or {})
-					lspconfig[server].setup(opts)
+					vim.lsp.enable(server, opts)
 				end,
 			},
 		})
+
+		-- Manual setup for ZLS (not managed by Mason)
+		local zls_opts = servers.zls or {}
+		zls_opts.capabilities = vim.tbl_deep_extend("force", {}, capabilities, zls_opts.capabilities or {})
+		vim.lsp.enable("zls", zls_opts)
 	end,
 }
