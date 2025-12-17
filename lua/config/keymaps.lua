@@ -38,6 +38,11 @@ vim.keymap.set("v", "<A-k>", ":m '<-2<CR>gv=gv", { desc = "Move block up" })
 -- Toggle Showkeys
 vim.keymap.set("n", "<leader>sk", ":ShowkeysToggle<CR>", { desc = "Toggle Showkeys" })
 
+-- Toggle Markdown rendering
+vim.keymap.set("n", "<leader>tm", ":RenderMarkdown<CR>", { desc = "Toggle Markdown rendering" })
+vim.keymap.set("n", "<leader>te", ":RenderMarkdownEnable<CR>", { desc = "Enable Markdown rendering" })
+vim.keymap.set("n", "<leader>td", ":RenderMarkdownDisable<CR>", { desc = "Disable Markdown rendering" })
+
 -- Run current file with bun
 vim.keymap.set("n", "<leader>rb", ":!bun %<CR>", { desc = "Run current file with bun" })
 

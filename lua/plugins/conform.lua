@@ -17,8 +17,9 @@ return {
 				json = { "prettier" },
 				kotlin = { "ktfmt" },
 				zig = { "zig fmt" },
+				zon = { "zig fmt" },
 			},
-			format_on_save = function(bufnr)
+	format_on_save = function(bufnr)
 				-- Disable auto-format for kotlin files
 				if vim.bo[bufnr].filetype == "kotlin" then
 					return false

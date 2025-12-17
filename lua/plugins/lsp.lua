@@ -7,6 +7,10 @@ return {
 		{ "j-hui/fidget.nvim", opts = {} },
 	},
 	config = function()
+		-- zig.vim settings
+		vim.g.zig_fmt_parse_errors = 0
+		vim.g.zig_fmt_autosave = 0
+
 		local lspconfig = require("lspconfig")
 		local mason_lsp = require("mason-lspconfig")
 		local capabilities = require("cmp_nvim_lsp").default_capabilities()
@@ -80,10 +84,16 @@ return {
 				},
 			},
 			zls = {
-				cmd = { "zls" },
+				cmd = { "/home/seven/zsl/zig-out/bin/zls" },
 				filetypes = { "zig", "zir" },
 				root_dir = lspconfig.util.root_pattern("build.zig", ".git") or vim.loop.cwd(),
 				single_file_support = true,
+				settings = {
+					zls = {
+						semantic_tokens = "partial",
+						zig_exe_path = "/home/seven/.local/bin/zig",
+					},
+				},
 			},
 		}
 
@@ -113,5 +123,13 @@ return {
 		local zls_opts = servers.zls or {}
 		zls_opts.capabilities = vim.tbl_deep_extend("force", {}, capabilities, zls_opts.capabilities or {})
 		vim.lsp.enable("zls", zls_opts)
+
+		-- Format-on-save for Zig files using ZLS
+		vim.api.nvim_create_autocmd("BufWritePre", {
+			pattern = { "*.zig", "*.zon" },
+			callback = function(ev)
+				vim.lsp.buf.format()
+			end,
+		})
 	end,
 }
