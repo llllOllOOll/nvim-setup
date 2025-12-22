@@ -46,6 +46,18 @@ vim.keymap.set("n", "<leader>td", ":RenderMarkdownDisable<CR>", { desc = "Disabl
 -- Run current file with bun
 vim.keymap.set("n", "<leader>rb", ":!bun %<CR>", { desc = "Run current file with bun" })
 
+-- Delete all comments starting with //
+vim.keymap.set("n", "<leader>dc", ":%g@^\\s*//@d<CR>", { desc = "Delete all // comments" })
+
+-- Delete all comments starting with //
+vim.keymap.set("n", "<leader>dc", ":%g@^\\s*//@d<CR>", { desc = "Delete all // comments" })
+
+-- Delete all comments starting with //
+vim.keymap.set("n", "<leader>dc", ":%g@^\\s*//@d<CR>", { desc = "Delete all // comments" })
+
+-- Delete all comments starting with //
+vim.keymap.set("n", "<leader>dc", ":%g@^\\s*//@d<CR>", { desc = "Delete all // comments" })
+
 
 
 -- Escape insert mode with jk
