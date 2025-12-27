@@ -72,6 +72,7 @@ return {
 			bashls = {},
 			marksman = {},
 			cssls = {},
+			clangd = {},
 			kotlin_language_server = {
 				settings = {
 					kotlin = {
