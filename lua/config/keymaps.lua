@@ -78,6 +78,11 @@ vim.keymap.set("n", "<leader>r", run_in_split, { silent = true, desc = "Re-run i
 vim.keymap.set("n", "<leader>e", ":cnext<CR>", { silent = true, desc = "Next compilation error" })
 vim.keymap.set("n", "<leader>E", ":cprev<CR>", { silent = true, desc = "Previous compilation error" })
 
+-- Toggle completion
+vim.keymap.set("n", "<leader>tc", function()
+	require("config.completion").toggle_completion()
+end, { desc = "[T]oggle [C]ompletion" })
+
 -- disable auto comment continuation
 vim.api.nvim_create_autocmd("BufEnter", {
   callback = function()
