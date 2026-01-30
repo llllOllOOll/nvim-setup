@@ -25,7 +25,7 @@
 				-- Setup completion sources function
 				local function get_completion_sources()
 					if not completion_toggle.is_completion_enabled() then
-						return {}
+						return { { name = "nvim_lsp" } }  -- Only LSP sources when disabled
 					end
 					return {
 						{ name = "nvim_lsp" },
@@ -50,13 +50,15 @@
 							}),
 						},
 						mapping = cmp.mapping.preset.insert({
-							["<C-Space>"] = cmp.mapping.complete(),
-							["<C-e>"] = cmp.mapping.abort(),
-							["<C-j>"] = cmp.mapping.select_next_item(),
-							["<C-k>"] = cmp.mapping.select_prev_item(),
-							["<CR>"] = cmp.mapping.confirm({ select = true }),
+							["<C-Space>"] = completion_toggle.is_completion_enabled() and cmp.mapping.complete() or nil,
+							["<C-e>"] = completion_toggle.is_completion_enabled() and cmp.mapping.abort() or nil,
+							["<C-j>"] = completion_toggle.is_completion_enabled() and cmp.mapping.select_next_item() or nil,
+							["<C-k>"] = completion_toggle.is_completion_enabled() and cmp.mapping.select_prev_item() or nil,
+							["<CR>"] = completion_toggle.is_completion_enabled() and cmp.mapping.confirm({ select = true }) or nil,
 							["<Tab>"] = cmp.mapping(function(fallback)
-								if luasnip.expand_or_jumpable() then
+								if not completion_toggle.is_completion_enabled() then
+									fallback()
+								elseif luasnip.expand_or_jumpable() then
 									luasnip.expand_or_jump()
 								elseif cmp.visible() then
 									cmp.select_next_item()
@@ -65,7 +67,9 @@
 								end
 							end, { "i", "s" }),
 							["<S-Tab>"] = cmp.mapping(function(fallback)
-								if luasnip.jumpable(-1) then
+								if not completion_toggle.is_completion_enabled() then
+									fallback()
+								elseif luasnip.jumpable(-1) then
 									luasnip.jump(-1)
 								elseif cmp.visible() then
 									cmp.select_prev_item()
@@ -75,8 +79,10 @@
 							end, { "i", "s" }),
 						}),
 						sources = get_completion_sources(),
-						completion = {
+						completion = completion_toggle.is_completion_enabled() and {
 							completeopt = "menu,menuone,noinsert",
+						} or {
+							completeopt = "menu,noselect,noinsert",
 						},
 					})
 				end

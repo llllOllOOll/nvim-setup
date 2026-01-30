@@ -83,6 +83,15 @@ vim.keymap.set("n", "<leader>tc", function()
 	require("config.completion").toggle_completion()
 end, { desc = "[T]oggle [C]ompletion" })
 
+-- Build and reload (Zig hot reload)
+vim.keymap.set('n', '<leader>h', ':w<CR>:!./build.sh<CR>', {desc = 'Build and reload (Zig hot reload)'})
+
+-- Save and run zig build game from project root (silent)
+vim.keymap.set('n', '<leader>d', function()
+  vim.cmd('w')
+  vim.cmd('silent !zig build game')
+end, {desc = 'Save and run zig build game (silent)'})
+
 -- disable auto comment continuation
 vim.api.nvim_create_autocmd("BufEnter", {
   callback = function()
