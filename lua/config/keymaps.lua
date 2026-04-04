@@ -92,6 +92,31 @@ vim.keymap.set('n', '<leader>d', function()
   vim.cmd('silent !zig build game')
 end, {desc = 'Save and run zig build game (silent)'})
 
+-- Space + t to move cursor to top of screen (zt)
+vim.keymap.set("n", "<leader>t", "zt", { desc = "Move cursor to top of screen" })
+
+-- Space + z to center cursor on screen (zz)
+vim.keymap.set("n", "<leader>z", "zz", { desc = "Center cursor on screen" })
+
+-- Copy filename and relative path keymaps
+vim.keymap.set("n", "<leader>yf", function()
+    local filename = vim.fn.expand("%:t")
+    vim.fn.setreg("+", filename)
+    vim.notify("Copied filename: " .. filename, vim.log.levels.INFO)
+end, { desc = "Copy filename to clipboard" })
+
+vim.keymap.set("n", "<leader>yp", function()
+    local relpath = vim.fn.fnamemodify(vim.fn.expand("%"), ":~:.")
+    vim.fn.setreg("+", relpath)
+    vim.notify("Copied relative path: " .. relpath, vim.log.levels.INFO)
+end, { desc = "Copy relative path to clipboard" })
+
+vim.keymap.set("n", "<leader>ya", function()
+    local abspath = vim.fn.expand("%:p")
+    vim.fn.setreg("+", abspath)
+    vim.notify("Copied absolute path: " .. abspath, vim.log.levels.INFO)
+end, { desc = "Copy absolute path to clipboard" })
+
 -- disable auto comment continuation
 vim.api.nvim_create_autocmd("BufEnter", {
   callback = function()
