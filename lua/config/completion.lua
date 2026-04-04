@@ -1,5 +1,5 @@
 local M = {
-	completion_enabled = false,
+	completion_enabled = true,
 }
 
 function M.toggle_completion()

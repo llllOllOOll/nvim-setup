@@ -19,8 +19,9 @@
 				-- Load VSCode-style snippets
 				require("luasnip.loaders.from_vscode").lazy_load()
 
-				-- Extend svelte to include html snippets
-				luasnip.filetype_extend("svelte", { "html" })
+			-- Extend filetypes to include html snippets
+			luasnip.filetype_extend("svelte", { "html" })
+			luasnip.filetype_extend("html", { "html" })
 
 				-- Setup completion sources function
 				local function get_completion_sources()
