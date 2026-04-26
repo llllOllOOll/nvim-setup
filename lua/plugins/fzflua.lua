@@ -7,14 +7,14 @@ return {
     opts = {},
     keys = {
         {
-            "<leader>ff",
+            "<leader>e",
             function()
                 require("fzf-lua").files()
             end,
             desc = "Find Files in project directory",
         },
         {
-            "<leader>fg",
+            "<leader>g",
             function()
                 require("fzf-lua").live_grep()
             end,

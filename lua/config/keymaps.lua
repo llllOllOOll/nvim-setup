@@ -66,17 +66,22 @@ vim.keymap.set("i", "jk", "<Esc>", { desc = "Escape insert mode" })
 -- Escape visual mode with jk
 -- vim.keymap.set("v", "jk", "<Esc>", { desc = "Escape visual mode" })
 
--- Open a live terminal split at the bottom and run the exact same command :make uses
-local function run_in_split()
-  local cmd = vim.fn.expandcmd(vim.o.makeprg)   -- respects your current makeprg + % replacements
-  vim.cmd("below 15split | terminal " .. cmd)   -- 15 lines high, you can change the number
+-- Run current file with zig run
+local function run_current_file()
+  vim.cmd("!zig run %")  -- executa arquivo atual
+end
+
+-- Run project with zig build run
+local function run_project()
+  vim.cmd("!zig build run")  -- executa projeto completo
 end
 
 -- Two-key workflow exactly like Tsoding
 vim.keymap.set("n", "<leader>c", ":make<CR>", { silent = true, desc = "Compile/Run (quickfix)" })
-vim.keymap.set("n", "<leader>r", run_in_split, { silent = true, desc = "Re-run in live split" })
-vim.keymap.set("n", "<leader>e", ":cnext<CR>", { silent = true, desc = "Next compilation error" })
-vim.keymap.set("n", "<leader>E", ":cprev<CR>", { silent = true, desc = "Previous compilation error" })
+vim.keymap.set("n", "<leader>r", run_current_file, { silent = false, desc = "Run current file" })
+vim.keymap.set("n", "<leader>rr", run_project, { silent = false, desc = "Run project" })
+-- vim.keymap.set("n", "<leader>e", ":cnext<CR>", { silent = true, desc = "Next compilation error" })
+-- vim.keymap.set("n", "<leader>E", ":cprev<CR>", { silent = true, desc = "Previous compilation error" })
 
 -- Toggle completion
 vim.keymap.set("n", "<leader>tc", function()
