@@ -1,5 +1,5 @@
 vim.keymap.set("n", "-", "<cmd>Oil --float<CR>", { desc = "Open Parent Directory in Oil" })
-vim.keymap.set("n", "gl", function()
+vim.keymap.set("n", "<leader>k", function()
 	vim.diagnostic.open_float()
 end, { desc = "Open Diagnostics in Float" })
 
@@ -77,9 +77,9 @@ local function run_project()
 end
 
 -- Two-key workflow exactly like Tsoding
-vim.keymap.set("n", "<leader>c", ":make<CR>", { silent = true, desc = "Compile/Run (quickfix)" })
-vim.keymap.set("n", "<leader>r", run_current_file, { silent = false, desc = "Run current file" })
-vim.keymap.set("n", "<leader>rr", run_project, { silent = false, desc = "Run project" })
+vim.keymap.set("n", "<leader>c", ":!zig build<CR>", { silent = true, desc = "Compile Zig project" })
+vim.keymap.set("n", "<leader>r", ":!zig run %<CR>", { silent = false, desc = "Run current Zig file" })
+vim.keymap.set("n", "<leader>rr", ":!zig build run<CR>", { silent = false, desc = "Build and run Zig project" })
 -- vim.keymap.set("n", "<leader>e", ":cnext<CR>", { silent = true, desc = "Next compilation error" })
 -- vim.keymap.set("n", "<leader>E", ":cprev<CR>", { silent = true, desc = "Previous compilation error" })
 

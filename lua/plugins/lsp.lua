@@ -38,17 +38,16 @@ return {
 
 		-- Diagnostic configuration
 		vim.diagnostic.config({
+			virtual_text = false,
+			signs = true,
 			severity_sort = true,
 			float = { border = "rounded" },
-			signs = {
-				text = {
-					[vim.diagnostic.severity.ERROR] = " ",
-					[vim.diagnostic.severity.WARN] = " ",
-					[vim.diagnostic.severity.INFO] = " ",
-					[vim.diagnostic.severity.HINT] = " ",
-				},
-			},
 		})
+
+		vim.fn.sign_define("DiagnosticSignError", { text = "✘", texthl = "DiagnosticSignError" })
+		vim.fn.sign_define("DiagnosticSignWarn", { text = "▲", texthl = "DiagnosticSignWarn" })
+		vim.fn.sign_define("DiagnosticSignInfo", { text = "ℹ", texthl = "DiagnosticSignInfo" })
+		vim.fn.sign_define("DiagnosticSignHint", { text = "⚑", texthl = "DiagnosticSignHint" })
 
 		-- LSP server configurations
 		local servers = {
@@ -72,6 +71,7 @@ return {
 			bashls = {},
 			marksman = {},
 			cssls = {},
+			htmx = {},
 			clangd = {},
 			kotlin_language_server = {
 				settings = {
@@ -102,7 +102,7 @@ return {
 		local ensure = vim.tbl_filter(function(server)
 			return server ~= "zls"
 		end, vim.tbl_keys(servers))
-		vim.list_extend(ensure, { "stylua", "prettier" })
+		vim.list_extend(ensure, { "stylua", "prettier", "htmx-lsp" })
 
 		require("mason-tool-installer").setup({
 			ensure_installed = ensure,
