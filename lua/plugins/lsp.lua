@@ -11,8 +11,6 @@ return {
 		vim.g.zig_fmt_parse_errors = 0
 		vim.g.zig_fmt_autosave = 0
 
-		local lspconfig = require("lspconfig")
-		local mason_lsp = require("mason-lspconfig")
 		local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
 		-- LSP keymaps
@@ -71,6 +69,7 @@ return {
 			bashls = {},
 			marksman = {},
 			cssls = {},
+			html = {},
 			htmx = {},
 			clangd = {},
 			kotlin_language_server = {
@@ -85,14 +84,14 @@ return {
 				},
 			},
 			zls = {
-				cmd = { "/home/seven/zsl/zig-out/bin/zls" },
+				cmd = { "/home/seven/zls/zig-out/bin/zls" },
 				filetypes = { "zig", "zir" },
-				root_dir = lspconfig.util.root_pattern("build.zig", ".git") or vim.loop.cwd(),
-				single_file_support = true,
+				root_markers = { "build.zig", ".git" },
+				workspace_required = false,
 				settings = {
 					zls = {
 						semantic_tokens = "partial",
-						zig_exe_path = "/home/seven/.local/bin/zig",
+						zig_exe_path = "/home/seven/zig/zig",
 					},
 				},
 			},
@@ -102,35 +101,26 @@ return {
 		local ensure = vim.tbl_filter(function(server)
 			return server ~= "zls"
 		end, vim.tbl_keys(servers))
-		vim.list_extend(ensure, { "stylua", "prettier", "htmx-lsp" })
+		vim.list_extend(ensure, { "stylua", "prettier", "htmx-lsp", "html-lsp" })
 
 		require("mason-tool-installer").setup({
 			ensure_installed = ensure,
 		})
 
-		-- Setup LSP servers
-		mason_lsp.setup({
-			automatic_installation = false,
-			handlers = {
-				function(server)
-					local opts = servers[server] or {}
-					opts.capabilities = vim.tbl_deep_extend("force", {}, capabilities, opts.capabilities or {})
-					vim.lsp.enable(server, opts)
-				end,
-			},
-		})
-
-		-- Manual setup for ZLS (not managed by Mason)
-		local zls_opts = servers.zls or {}
-		zls_opts.capabilities = vim.tbl_deep_extend("force", {}, capabilities, zls_opts.capabilities or {})
-		vim.lsp.enable("zls", zls_opts)
+		-- Setup LSP servers via native API
+		for server, opts in pairs(servers) do
+			opts.capabilities = vim.tbl_deep_extend("force", {}, capabilities, opts.capabilities or {})
+			vim.lsp.config(server, opts)
+			vim.lsp.enable(server)
+		end
 
 		-- Format-on-save for Zig files using ZLS
 		vim.api.nvim_create_autocmd("BufWritePre", {
 			pattern = { "*.zig", "*.zon" },
 			callback = function(ev)
-				vim.lsp.buf.format()
+				vim.lsp.buf.format({ bufnr = ev.buf })
 			end,
 		})
+
 	end,
 }
