@@ -1,6 +1,7 @@
 require("config.lazy")
 require("config.makeprg")
 require("snippets.svelte")
+-- -- require('multiplexer') -- Disabled: multiplexer terminal keymaps conflict with kitty-native workflow -- Disabled: multiplexer terminal keymaps conflict with kitty-native workflow
 
 
 -- fzf-lua shortcut for zig/lib search
