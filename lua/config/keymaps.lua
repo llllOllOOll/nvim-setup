@@ -66,20 +66,8 @@ vim.keymap.set("i", "jk", "<Esc>", { desc = "Escape insert mode" })
 -- Escape visual mode with jk
 -- vim.keymap.set("v", "jk", "<Esc>", { desc = "Escape visual mode" })
 
--- Run current file with zig run
-local function run_current_file()
-  vim.cmd("!zig run %")  -- executa arquivo atual
-end
-
--- Run project with zig build run
-local function run_project()
-  vim.cmd("!zig build run")  -- executa projeto completo
-end
-
--- Two-key workflow exactly like Tsoding
-vim.keymap.set("n", "<leader>c", ":!zig build<CR>", { silent = true, desc = "Compile Zig project" })
-vim.keymap.set("n", "<leader>r", ":!zig run %<CR>", { silent = false, desc = "Run current Zig file" })
-vim.keymap.set("n", "<leader>rr", ":!zig build run<CR>", { silent = false, desc = "Build and run Zig project" })
+-- Zig build/run moved to floating terminal (plugin/floaterminal.lua)
+-- <leader>c = zig build, <leader>r = zig build run, <leader>tt = shell prompt
 -- vim.keymap.set("n", "<leader>e", ":cnext<CR>", { silent = true, desc = "Next compilation error" })
 -- vim.keymap.set("n", "<leader>E", ":cprev<CR>", { silent = true, desc = "Previous compilation error" })
 
