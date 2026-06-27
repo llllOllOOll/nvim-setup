@@ -37,6 +37,7 @@ local function toggle_terminal()
     state = create_floating_window { buf = state.buf }
     if vim.bo[state.buf].buftype ~= "terminal" then
       vim.cmd("terminal env NVIM_FLOATERM=1 fish -C clear")
+      vim.cmd("startinsert")
       state.buf = vim.api.nvim_win_get_buf(state.win)
     end
   end
@@ -47,6 +48,7 @@ local function send_to_terminal(cmd)
     state = create_floating_window { buf = state.buf }
     if vim.bo[state.buf].buftype ~= "terminal" then
       vim.cmd("terminal env NVIM_FLOATERM=1 fish -C clear")
+      vim.cmd("startinsert")
       state.buf = vim.api.nvim_win_get_buf(state.win)
     end
   end
